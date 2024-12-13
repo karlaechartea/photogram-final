@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   # Routes for the User resource:
   post("/insert_user", { :controller => "users", :action => "create" })
   get("/users", { :controller => "users", :action => "index" })
-  get("/users/:path_id", { :controller => "users", :action => "show" })
+  get("/users/:username", { :controller => "users", :action => "show", :as => "user" })
   post("/modify_user/:path_id", { :controller => "users", :action => "update" })
   get("/delete_user/:path_id", { :controller => "users", :action => "destroy" })
 

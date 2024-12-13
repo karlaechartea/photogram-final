@@ -42,12 +42,13 @@ class FollowRequestsController < ApplicationController
 
   # Unfollow a user
   def destroy
-    follow_request = current_user.follow_requests.find_by(recipient_id: params.fetch("recipient_id"), status: "accepted")
-
+    recipient_id = params[:recipient_id] || params[:id]
+    follow_request = current_user.follow_requests.find_by(recipient_id: recipient_id, status: "accepted")
+  
     if follow_request&.destroy
-      redirect_to("/", { :notice => "Unfollowed the user successfully." })
+      redirect_to "/", notice: "Unfollowed the user successfully."
     else
-      redirect_to("/", { :alert => "Unable to unfollow the user." })
+      redirect_to "/", alert: "Unable to unfollow the user."
     end
   end
 
@@ -67,4 +68,3 @@ class FollowRequestsController < ApplicationController
     end
   end
 end
-

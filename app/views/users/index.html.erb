@@ -25,15 +25,15 @@
             <% if user_signed_in? %>
               <td>
                 <% if current_user.following?(user) %>
-                  <%= button_to "Unfollow", unfollow_user_path(user), method: :post %>
-                <% elsif current_user.pending_follow_request?(user) %>
-                  Request sent. <%= link_to "Cancel", cancel_follow_request_path(user), method: :post %>
-                <% else %>
-                  <%= button_to "Follow", follow_user_path(user), method: :post %>
-                <% end %>
+                <%= button_to "Unfollow", unfollow_user_path(user.id), method: :post, params: { recipient_id: user.id } %>
+                  <% elsif current_user.pending_follow_request?(user) %>
+                Request sent. <%= link_to "Cancel", cancel_follow_request_path(user), method: :post %>
+                  <% else %>
+                <%= button_to "Follow", follow_user_path(user), method: :post %>
+              <% end %>
               </td>
             <% end %>
-            <td><a href="/users/<%= user.id %>">Show details</a></td>
+            <td><a href="<%= user_path(user.username) %>">Show details</a></td>
           </tr>
         <% end %>
       </tbody>

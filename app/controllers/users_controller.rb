@@ -11,13 +11,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    the_id = params.fetch("path_id")
-
-    matching_users = User.where({ :id => the_id })
-
-    @the_user = matching_users.at(0)
-
-    render({ :template => "users/show" })
+    the_username = params.fetch("username")
+    matching_users = User.where({ username: the_username })
+  
+    @the_user = matching_users.first
+  
+    if @the_user.nil?
+      redirect_to "/users", alert: "User not found."
+    else
+      render({ template: "users/show" })
+    end
   end
 
   def create
