@@ -19,6 +19,11 @@ Rails.application.routes.draw do
   post("/modify_follow_request/:path_id", { :controller => "follow_requests", :action => "update" })
   get("/delete_follow_request/:path_id", { :controller => "follow_requests", :action => "destroy" })
 
+  post "/follow_user/:id", to: "follow_requests#create", as: :follow_user
+  post "/unfollow_user/:id", to: "follow_requests#destroy", as: :unfollow_user
+  post "/cancel_follow_request/:id", to: "follow_requests#cancel", as: :cancel_follow_request
+
+
   # Routes for the Comment resource:
   post("/insert_comment", { :controller => "comments", :action => "create" })
   get("/comments", { :controller => "comments", :action => "index" })
@@ -40,6 +45,4 @@ Rails.application.routes.draw do
   post("/modify_user/:path_id", { :controller => "users", :action => "update" })
   get("/delete_user/:path_id", { :controller => "users", :action => "destroy" })
 
-  # Remove unnecessary welcome routes (no longer used)
 end
-

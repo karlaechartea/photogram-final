@@ -25,4 +25,15 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+         has_many :follow_requests, foreign_key: :sender_id
+         has_many :received_follow_requests, foreign_key: :recipient_id, class_name: "FollowRequest"
+       
+         def following?(other_user)
+           follow_requests.exists?(recipient_id: other_user.id, status: "accepted")
+         end
+       
+         def pending_follow_request?(other_user)
+           follow_requests.exists?(recipient_id: other_user.id, status: "pending")
+         end
 end

@@ -2,8 +2,11 @@ class HomeController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
 
   def index
-    @users = User.all
-      puts "Users count: #{@users.size}" # Debugging output
-
+    if user_signed_in?
+      @users = User.all
+      @current_user = current_user
+    else
+      @users = User.all
+    end
   end
 end
