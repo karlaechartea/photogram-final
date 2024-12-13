@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Photogram</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+  </head>
+  <body>
+    <% if notice.present? %>
+      <div><%= notice %></div>
+    <% end %>
+    <% if alert.present? %>
+      <div><%= alert %></div>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>
+
