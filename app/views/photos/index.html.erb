@@ -2,8 +2,8 @@
   <h1>List of photos</h1>
 
   <form action="/insert_photo" method="post" enctype="multipart/form-data">
-    <label for="image">Image</label>
-    <input type="file" id="image" name="image">
+    <label for="image">Image (optional URL)</label>
+    <input type="text" id="image" name="image" placeholder="Enter image URL">
 
     <label for="caption">Caption</label>
     <textarea id="caption" name="query_caption"></textarea>
@@ -23,22 +23,22 @@
       <th>Details</th>
     </tr>
   </thead>
- <tbody>
-  <% @list_of_photos.each do |photo| %>
-    <tr>
-      <td>
-        <% if photo.image.present? %>
-          <img src="<%= photo.image %>" alt="Photo" width="100">
-        <% else %>
-          No image
-        <% end %>
-      </td>
-      <td><%= photo.caption %></td>
-       <td><%= User.find(photo.owner_id).username %></td>
+  <tbody>
+    <% @list_of_photos.each do |photo| %>
+      <tr>
+        <td>
+          <% if photo.image.present? %>
+            <img src="<%= photo.image %>" alt="Photo" width="100">
+          <% else %>
+            No image available
+          <% end %>
+        </td>
+        <td><%= photo.caption %></td>
+        <td><%= User.find(photo.owner_id).username rescue "Unknown" %></td>
         <td><%= time_ago_in_words(photo.created_at) %> ago</td>
         <td><%= photo.likes_count %></td>
         <td><a href="/photos/<%= photo.id %>">Show details</a></td>
-    </tr>
-  <% end %>
-</tbody>
+      </tr>
+    <% end %>
+  </tbody>
 </table>

@@ -5,7 +5,6 @@ require "rails/all"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-Dotenv::Railtie.load # Load environment variables from .env
 
 module RailsTemplate
   class Application < Rails::Application
@@ -21,7 +20,6 @@ module RailsTemplate
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Add this line to include uploaders in the autoload path
-    config.autoload_paths += %W(#{config.root}/app/uploaders)
 
     config.generators do |g|
       g.test_framework nil
