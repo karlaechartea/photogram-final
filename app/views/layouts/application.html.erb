@@ -8,6 +8,22 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
   </head>
   <body>
+
+    <nav>
+      <ul>
+        <li><a href="/users">All users</a></li>
+        <li><a href="/photos">All public photos</a></li>
+        <% if user_signed_in? %>
+          <li><a href="<%= edit_user_registration_path %>"><%= current_user.username %></a></li>
+          <li><a href="/users/sign_out">Sign out</a></li>
+        <% else %>
+          <li><a href="/users/sign_in">Sign in</a></li>
+          <li><a href="/users/sign_up">Sign up</a></li>
+        <% end %>
+      </ul>
+    </nav>
+    
+
     <% if notice.present? %>
       <div><%= notice %></div>
     <% end %>
@@ -17,4 +33,3 @@
     <%= yield %>
   </body>
 </html>
-
